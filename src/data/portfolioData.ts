@@ -34,7 +34,7 @@ export const PLAYER_STATS = {
     { slot: "Off Hand", item: "Spalding Pixel Basketball", tier: "Rare", perk: "+15 Agility, Instant Clutch Playmaking" },
   ],
   vitalStats: {
-    totalCommits: "850+",
+    projectsCompleted: "4+ Core",
     codeLines: "120k+",
     bugsSquashed: "420",
     hackathonRounds: "National Finalist",

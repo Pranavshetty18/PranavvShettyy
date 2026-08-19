@@ -1,17 +1,19 @@
 import React from 'react';
 import { HERO_DATA } from '../data/portfolioData';
 import { InteractiveCharacter } from './InteractiveCharacter';
-import { playClickSound } from '../utils/audio';
-import { Terminal, Shield, Award, Sparkles, ArrowDown } from 'lucide-react';
+import { playClickSound, playChestOpenSound } from '../utils/audio';
+import { Terminal, Shield, Award, Sparkles, ArrowDown, BookOpen } from 'lucide-react';
 
 interface HeroSectionProps {
   onScoreXp: (amount: number) => void;
   onTriggerAchievement: (title: string, desc: string) => void;
+  onOpenResume?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onScoreXp,
-  onTriggerAchievement
+  onTriggerAchievement,
+  onOpenResume
 }) => {
   const scrollTo = (selector: string) => {
     playClickSound();
@@ -115,6 +117,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 >
                   <Sparkles size={14} className="text-[#FFAA00]" /> QUEST LOG
                 </button>
+
+                {onOpenResume && (
+                  <button
+                    onClick={() => {
+                      playChestOpenSound();
+                      onOpenResume();
+                    }}
+                    className="mc-btn px-4 py-3 text-xs font-pixel flex items-center gap-2 text-[#FFFF55] hover:text-white"
+                    title="Open Written Book Resume"
+                  >
+                    <BookOpen size={14} className="text-[#FFAA00]" /> RESUME DOSSIER
+                  </button>
+                )}
 
                 <button
                   onClick={() => scrollTo('#contact')}

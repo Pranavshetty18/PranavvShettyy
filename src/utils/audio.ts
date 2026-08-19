@@ -27,6 +27,10 @@ export function isSoundEnabled(): boolean {
   return soundEnabled;
 }
 
+export function isAudioMuted(): boolean {
+  return !isSoundEnabled();
+}
+
 export function toggleSound(): boolean {
   soundEnabled = !soundEnabled;
   if (typeof window !== 'undefined') {
@@ -36,6 +40,10 @@ export function toggleSound(): boolean {
     playClickSound();
   }
   return soundEnabled;
+}
+
+export function toggleAudio(): boolean {
+  return !toggleSound();
 }
 
 export function playClickSound() {

@@ -175,10 +175,10 @@ export const PlayerStatsSection: React.FC<PlayerStatsSectionProps> = ({ onScoreX
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <div className="mc-panel-dark p-3 border-2 border-[#444] text-center">
                   <div className="font-pixel text-lg text-[#55FF55]">
-                    {PLAYER_STATS.vitalStats.totalCommits}
+                    {PLAYER_STATS.vitalStats.projectsCompleted}
                   </div>
                   <div className="font-pixel text-[8px] text-[#888] mt-1">
-                    TOTAL COMMITS
+                    PROJECTS BUILT
                   </div>
                 </div>
 
