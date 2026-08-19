@@ -1,6 +1,6 @@
 import React from 'react';
 import { PLAYER_STATS } from '../data/portfolioData';
-import { Shield, Zap, Award, Flame, CheckCircle2, UserCheck } from 'lucide-react';
+import { Shield, Award, Flame, UserCheck } from 'lucide-react';
 import { playClickSound, playXpSound } from '../utils/audio';
 
 interface PlayerStatsSectionProps {
@@ -17,10 +17,10 @@ export const PlayerStatsSection: React.FC<PlayerStatsSectionProps> = ({ onScoreX
           <span>📜</span> PROFILE ARCHIVE
         </div>
         <h2 className="font-pixel text-xl sm:text-3xl text-white tracking-wider drop-shadow-[3px_3px_0px_#000]">
-          PLAYER STATS & ATTRIBUTES
+          PLAYER STATS & LOADOUT
         </h2>
         <p className="text-xs sm:text-sm text-[#cbd5e1] font-sans mt-2 max-w-xl">
-          Detailed character sheet, skill proficiencies, and equipped gear loadout.
+          Character profile, equipped gear loadout, and server telemetry.
         </p>
       </div>
 
@@ -49,130 +49,32 @@ export const PlayerStatsSection: React.FC<PlayerStatsSectionProps> = ({ onScoreX
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column (5 cols): Player Bio Card & Equipped Gear */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          {/* Left Column (6 cols): Player Bio Card + Server Telemetry & Vitals */}
+          <div className="lg:col-span-6 flex flex-col gap-6">
             
             {/* Bio Card */}
-            <div className="mc-panel p-4 text-black">
-              <h4 className="font-pixel text-xs text-[#2b180a] mb-2 flex items-center gap-2">
-                <UserCheck size={14} className="text-[#8B5A2B]" /> PLAYER BIOGRAPHY
+            <div className="mc-panel p-5 text-black">
+              <h4 className="font-pixel text-xs text-[#2b180a] mb-3 flex items-center gap-2">
+                <UserCheck size={16} className="text-[#8B5A2B]" /> PLAYER BIOGRAPHY
               </h4>
               <p className="text-xs sm:text-sm font-sans text-[#222] leading-relaxed">
                 {PLAYER_STATS.bio}
               </p>
-              <div className="mt-3 pt-3 border-t border-[#888] flex items-center justify-between text-[10px] font-pixel text-[#444]">
+              <div className="mt-4 pt-3 border-t border-[#888] flex items-center justify-between text-[10px] font-pixel text-[#444]">
                 <span>CAMPUS: PESU BENGALURU</span>
                 <span className="text-[#5D8B3B] font-bold">CGPA: 6.63</span>
               </div>
             </div>
 
-            {/* Equipment Loadout / Inventory Slots */}
-            <div>
-              <h4 className="font-pixel text-xs text-[#FFFF55] mb-3 flex items-center gap-2">
-                <Shield size={14} className="text-[#55FFFF]" /> EQUIPPED GEAR
-              </h4>
-
-              <div className="grid grid-cols-1 gap-2">
-                {PLAYER_STATS.equippedGear.map((gear, idx) => (
-                  <div 
-                    key={idx}
-                    onClick={() => {
-                      playClickSound();
-                      playXpSound();
-                      onScoreXp(5);
-                    }}
-                    className="mc-slot p-2.5 flex items-center justify-between group cursor-pointer hover:border-[#55FF55] transition-all"
-                  >
-                    <div className="flex items-center gap-3">
-                      {/* Slot Icon representation */}
-                      <div className="w-7 h-7 bg-[#2a2a2a] border border-black flex items-center justify-center font-pixel text-xs text-[#FFAA00]">
-                        {gear.slot === "Helmet" ? "🪖" : 
-                         gear.slot === "Chestplate" ? "🛡️" : 
-                         gear.slot === "Leggings" ? "👖" : 
-                         gear.slot === "Boots" ? "👢" : 
-                         gear.slot === "Main Hand" ? "🗡️" : "🏀"}
-                      </div>
-                      <div>
-                        <div className="font-pixel text-[10px] text-white group-hover:text-[#FFFF55] transition-colors">
-                          {gear.item}
-                        </div>
-                        <div className="text-[10px] text-[#55FF55] font-mono">
-                          {gear.perk}
-                        </div>
-                      </div>
-                    </div>
-                    <span className="font-pixel text-[8px] px-1.5 py-0.5 bg-black/60 text-[#55FFFF] border border-[#55FFFF]/40">
-                      {gear.tier}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-
-          {/* Right Column (7 cols): Attribute XP Bars & Vitals */}
-          <div className="lg:col-span-7 flex flex-col gap-6">
-            
-            {/* Attribute Progress Bars (Minecraft XP style) */}
-            <div>
-              <h4 className="font-pixel text-xs text-[#55FFFF] mb-4 flex items-center gap-2">
-                <Zap size={14} className="text-[#FFAA00]" /> CORE ATTRIBUTE PROFICIENCIES
-              </h4>
-
-              <div className="space-y-4">
-                {PLAYER_STATS.attributes.map((attr, index) => (
-                  <div key={index} className="space-y-1.5">
-                    <div className="flex justify-between items-center">
-                      <span className="font-pixel text-[11px] text-white">
-                        {attr.name}
-                      </span>
-                      <span className="font-pixel text-[10px] text-[#55FF55]">
-                        Lv.{Math.floor(attr.value / 10)} // {attr.value}%
-                      </span>
-                    </div>
-
-                    {/* XP Progress Bar */}
-                    <div className="w-full bg-[#000000] h-5 border-2 border-[#555] relative overflow-hidden flex items-center">
-                      {/* Bar Fill */}
-                      <div 
-                        className="h-full transition-all duration-700 relative"
-                        style={{ 
-                          width: `${attr.value}%`,
-                          backgroundColor: attr.color,
-                          boxShadow: `0 0 10px ${attr.color}88`
-                        }}
-                      >
-                        {/* Shimmer line */}
-                        <div className="absolute inset-0 bg-white/20 transform -skew-x-12" />
-                      </div>
-
-                      {/* Notches */}
-                      <div className="absolute inset-0 flex justify-between px-1 pointer-events-none opacity-40">
-                        {[...Array(10)].map((_, i) => (
-                          <div key={i} className="w-[1px] h-full bg-black" />
-                        ))}
-                      </div>
-
-                      {/* Floating Text inside bar */}
-                      <span className="absolute right-2 font-pixel text-[8px] text-black font-bold">
-                        {attr.value >= 90 ? "MASTERED" : "HIGH TIER"}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Vital Statistics Bento Grid */}
-            <div className="mt-2">
-              <h4 className="font-pixel text-xs text-[#FFAA00] mb-3 flex items-center gap-2">
+            {/* Vital Statistics Grid */}
+            <div className="space-y-3">
+              <h4 className="font-pixel text-xs text-[#FFAA00] flex items-center gap-2">
                 <Flame size={14} className="text-[#FF5555]" /> SERVER TELEMETRY & VITALS
               </h4>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 <div className="mc-panel-dark p-3 border-2 border-[#444] text-center">
                   <div className="font-pixel text-lg text-[#55FF55]">
                     {PLAYER_STATS.vitalStats.projectsCompleted}
@@ -199,19 +101,63 @@ export const PlayerStatsSection: React.FC<PlayerStatsSectionProps> = ({ onScoreX
                     TARGET UPTIME
                   </div>
                 </div>
+              </div>
 
-                <div className="mc-panel-dark p-3 border-2 border-[#444] text-center col-span-2 sm:col-span-3">
-                  <div className="font-pixel text-xs text-[#FFFF55] flex items-center justify-center gap-2">
-                    <Award size={16} className="text-[#FFAA00]" /> 
-                    <span>NATIONAL FINALIST: CANARA BANK CYBER HACKATHON 2025</span>
-                  </div>
-                  <div className="text-[11px] text-[#aaa] mt-1 font-sans">
-                    Recognized among top developer teams nationwide for real-time fintech anomaly detection backend.
-                  </div>
+              {/* National Finalist Banner */}
+              <div className="mc-panel-dark p-4 border-2 border-[#555] text-center">
+                <div className="font-pixel text-xs text-[#FFFF55] flex items-center justify-center gap-2">
+                  <Award size={16} className="text-[#FFAA00]" /> 
+                  <span>NATIONAL FINALIST: CANARA BANK CYBER HACKATHON 2025</span>
+                </div>
+                <div className="text-[11px] text-[#aaa] mt-1.5 font-sans leading-relaxed">
+                  Recognized among top developer teams nationwide for real-time fintech anomaly detection backend.
                 </div>
               </div>
             </div>
 
+          </div>
+
+          {/* Right Column (6 cols): Equipped Gear Loadout */}
+          <div className="lg:col-span-6 flex flex-col gap-3">
+            <h4 className="font-pixel text-xs text-[#FFFF55] flex items-center gap-2 mb-1">
+              <Shield size={15} className="text-[#55FFFF]" /> EQUIPPED GEAR LOADOUT
+            </h4>
+
+            <div className="grid grid-cols-1 gap-2.5">
+              {PLAYER_STATS.equippedGear.map((gear, idx) => (
+                <div 
+                  key={idx}
+                  onClick={() => {
+                    playClickSound();
+                    playXpSound();
+                    onScoreXp(5);
+                  }}
+                  className="mc-slot p-3 flex items-center justify-between group cursor-pointer hover:border-[#55FF55] transition-all"
+                >
+                  <div className="flex items-center gap-3">
+                    {/* Slot Icon representation */}
+                    <div className="w-8 h-8 bg-[#2a2a2a] border border-black flex items-center justify-center font-pixel text-sm text-[#FFAA00]">
+                      {gear.slot === "Helmet" ? "🪖" : 
+                       gear.slot === "Chestplate" ? "🛡️" : 
+                       gear.slot === "Leggings" ? "👖" : 
+                       gear.slot === "Boots" ? "👢" : 
+                       gear.slot === "Main Hand" ? "🗡️" : "🏀"}
+                    </div>
+                    <div>
+                      <div className="font-pixel text-[11px] text-white group-hover:text-[#FFFF55] transition-colors">
+                        {gear.item}
+                      </div>
+                      <div className="text-[10px] text-[#55FF55] font-mono mt-0.5">
+                        {gear.perk}
+                      </div>
+                    </div>
+                  </div>
+                  <span className="font-pixel text-[8px] px-2 py-0.5 bg-black/60 text-[#55FFFF] border border-[#55FFFF]/40">
+                    {gear.tier}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>

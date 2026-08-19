@@ -6,13 +6,12 @@ import { Terminal, Shield, Award, Sparkles, ArrowDown, BookOpen } from 'lucide-r
 
 interface HeroSectionProps {
   onScoreXp: (amount: number) => void;
-  onTriggerAchievement: (title: string, desc: string) => void;
+  onTriggerAchievement?: (title: string, desc: string) => void;
   onOpenResume?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onScoreXp,
-  onTriggerAchievement,
   onOpenResume
 }) => {
   const scrollTo = (selector: string) => {
@@ -142,7 +141,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {/* Quick Prompt Tooltip */}
               <div className="text-[10px] font-pixel text-[#9ca3af] flex items-center gap-1.5 pt-1">
                 <span className="text-[#FFFF55]">💡 TIP:</span>
-                <span>Click Pranav's character or basketball to interact & score XP!</span>
+                <span>Drag Pranav's 3D voxel character to rotate 360° in real time!</span>
               </div>
             </div>
 
@@ -153,10 +152,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="w-full flex flex-col items-center relative">
                 
                 {/* Character Interactive Component */}
-                <InteractiveCharacter 
-                  onScoreXp={onScoreXp}
-                  onTriggerAchievement={onTriggerAchievement}
-                />
+                <InteractiveCharacter />
 
                 {/* Pedestal Block (Grass Layer + Dirt Layer) */}
                 <div className="w-56 sm:w-64 -mt-2 z-0">
