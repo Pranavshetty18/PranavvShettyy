@@ -1,0 +1,6 @@
+{
+  "name": "Pranav Shetty - Minecraft Portfolio",
+  "description": "A Minecraft-themed personal portfolio and resume website for Pranav Shetty, Computer Science undergrad and backend developer, featuring an interactive voxel character, quest log, inventory grid, enchantment table, and server connect screen.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
